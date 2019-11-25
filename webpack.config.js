@@ -2,8 +2,22 @@ const path = require("path");
 const webpack = require("webpack");
 
 module.exports = {
-  entry: "./src/index.js",
   mode: process.env.NODE_ENV,
+  entry: "./src/index.js",
+  output: {
+      filename: 'bundle.js',
+      path: path.resolve(__dirname, 'dist')
+  },
+  devServer: {
+    contentBase: path.join(__dirname, "./dist"),
+    // publicPath: "http://localhost:8080/dist/",
+    port: 8080,
+    hot: true,
+    proxy: [{
+        context: ['/'],
+        target: 'http://localhost:3000'
+    }]
+  }, 
   module: {
     rules: [
       {
@@ -30,19 +44,11 @@ module.exports = {
     ]
   },
   resolve: { extensions: ["*", ".js", ".jsx"] },
-  output: {
-    path: path.resolve(__dirname, "dist/"),
-    publicPath: "/dist/",
-    filename: "bundle.js"
-  },
-  devServer: {
-    contentBase: path.join(__dirname, "dist/"),
-    publicPath: "http://localhost:8080/dist/",
-    hotOnly: true,
-    proxy: { 'http://localhost:8080': {
-      target: 'http://localhost:3000',
-      pathRewrite: {'^/login' : '' } }
-    },
-  },
+//   output: {
+//     path: path.resolve(__dirname, "dist/"),
+//     publicPath: "/dist/",
+//     filename: "bundle.js"
+//   },
+  
   plugins: [new webpack.HotModuleReplacementPlugin()]
 };
