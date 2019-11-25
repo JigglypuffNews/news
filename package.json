@@ -27,6 +27,7 @@
     "cookie-parser": "^1.4.4",
     "css-loader": "^3.2.0",
     "express": "^4.17.1",
+    "file-loader": "^5.0.2",
     "jest": "^24.9.0",
     "nodemon": "^2.0.1",
     "react": "^16.12.0",

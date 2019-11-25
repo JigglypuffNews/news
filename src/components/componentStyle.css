@@ -1,4 +1,40 @@
 #loginPage {
-    height: 300px;
-    width: 400px;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+#loginBox {
+    margin-top: 20%;
+    margin-bottom: 20px;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: lightslategrey;
+    border: 2px solid slategray;
+    border-radius: 10px;
+    height: 100%;
+    width: 60%
+}
+
+#logoBox {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    bottom: 0;
+    margin-top: 100px;
+    overflow: hidden;
+}
+
+#logoPic {
+
+    max-width: 650px;
+}
+
+@media only screen and (max-height: 420px) {
+    #logoPic {
+        display: none;
+    }
 }
