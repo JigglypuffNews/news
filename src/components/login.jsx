@@ -16,7 +16,7 @@ class Login extends Component{
         return (
             <>
                 <h1>Login</h1>
-                <button>LOG IN TO LINKEDIN</button>
+                <button onClick={handleClick}>LOG IN TO LINKEDIN</button>
             </>
         )
     }
