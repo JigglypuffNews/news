@@ -20,14 +20,9 @@
   },
   "homepage": "https://github.com/JigglypuffNews/news#readme",
   "dependencies": {
-<<<<<<< HEAD
-    "jest": "^24.9.0",
-    "path": "^0.12.7"
-=======
     "express": "^4.17.1",
     "jest": "^24.9.0",
     "nodemon": "^2.0.1"
->>>>>>> dev
   },
   "devDependencies": {
     "webpack": "^4.41.2",
