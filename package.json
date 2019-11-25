@@ -4,7 +4,10 @@
   "description": "Content amalgamator that displays by topic",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon server/server.js",
+    "dev": "webpack-dev-server --open",
+    "build": "webpack --mode production",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -17,7 +20,9 @@
   },
   "homepage": "https://github.com/JigglypuffNews/news#readme",
   "dependencies": {
-    "jest": "^24.9.0"
+    "express": "^4.17.1",
+    "jest": "^24.9.0",
+    "nodemon": "^2.0.1"
   },
   "devDependencies": {
     "webpack": "^4.41.2",
