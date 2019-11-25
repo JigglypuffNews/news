@@ -16,13 +16,9 @@ class App extends Component{
     render () {
         return (
             <BrowserRouter>
-            <div>
-                <Link to="/"><button>Login</button></Link>
-                <Link to="/home"><button>Main Page</button></Link>
-            </div>
                 <Switch>
                     <Route exact path="/" component={Login} />
-                    <Route path="/home" component={FeedContainer} />
+                    <Route path="/main" component={FeedContainer} />
                 </Switch>
             </BrowserRouter>
         )
