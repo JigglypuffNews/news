@@ -10,7 +10,6 @@ module.exports = {
   },
   devServer: {
     contentBase: path.join(__dirname, "./dist"),
-    // publicPath: "http://localhost:8080/dist/",
     port: 8080,
     hot: true,
     proxy: [{
@@ -44,11 +43,5 @@ module.exports = {
     ]
   },
   resolve: { extensions: ["*", ".js", ".jsx"] },
-//   output: {
-//     path: path.resolve(__dirname, "dist/"),
-//     publicPath: "/dist/",
-//     filename: "bundle.js"
-//   },
-  
   plugins: [new webpack.HotModuleReplacementPlugin()]
 };
