@@ -1,25 +1,22 @@
 const pool = require('../models/userModel')
 
 module.exports = {
-  checkIfUser(req, res, next) {
-    const { linkedinId } = req.body
-        // const { id, firstName } = result;
+  // removed variables as this wont be express middleware anymore
+  checkIfUser(id, displayName) {
+    console.log('INSIDE CHECK IF USER MIDDLEWARE')
 
-        const queryString = `CREATE TABLE IF NOT EXISTS user (
-          id varchar NOT NULL,
-          user varchar NOT NULL,
-          )`
+    // added $1 to query string - may not be proper syntax
+    const queryString = 'INSERT INTO users (id, user) VALUES ($1, $2)';
 
-        const values = [id, user]
+    const values = [id, displayName];
 
-        pool.query(queryString, values, (err, results) => {
-          if (err) {
-            return console.error('Error:', err)
-          }
-          else {
-            console.log('added user to database if they haven\'t been inputted previously')
-          }
-        })
-     
-  }
-}
+    pool.query(queryString, values, (err, results) => {
+      if (err) {
+        return console.error('Error:', err);
+      }
+      else {
+        console.log('added user to database if they haven\'t been inputted previously');
+      }
+    });
+  },
+};

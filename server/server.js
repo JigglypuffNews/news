@@ -39,7 +39,7 @@ passport.use(new LinkedInStrategy({
     // add user to db with middleware
     // move on
     console.log('INSIDE NEXT TICK FUNC')
-    console.log('accessToken:', accessToken, 'profile ID:', profile.id, 'dispaly name: ', profile.displayName);
+    console.log('accessToken:', accessToken, 'profile ID:', profile.id, 'display name: ', profile.displayName);
     // To keep the example simple, the user's LinkedIn profile is returned to
     // represent the logged-in user. In a typical application, you would want
     // to associate the LinkedIn account with a user record in your database,
@@ -64,8 +64,9 @@ app.get('/login', passport.authenticate('linkedin')
 );
 
 app.get('/main', passport.authenticate('linkedin', {
-  successRedirect: '/main',
+  successRedirect: '/',
   failureRedirect: '/login',
 }));
+
 
 app.listen(3000, () => { console.log('Listening on port 3000!'); });
