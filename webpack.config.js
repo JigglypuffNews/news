@@ -13,7 +13,7 @@ module.exports = {
     port: 8080,
     hot: true,
     proxy: [{
-        context: ['/'],
+        context: ()=>true,
         target: 'http://localhost:3000'
     }]
   }, 

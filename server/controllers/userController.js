@@ -2,17 +2,12 @@ const pool = require('../models/userModel')
 
 module.exports = {
   checkIfUser(req, res, next) {
-
-    fetch('GET https://api.linkedin.com/v2/me')
-      .then(data => data.json())
-      .then(result => {
-        const { id, firstName } = result;
+    const { linkedinId } = req.body
+        // const { id, firstName } = result;
 
         const queryString = `CREATE TABLE IF NOT EXISTS user (
           id varchar NOT NULL,
-          firstName varchar NOT NULL,
-          interests varchar,
-          favorites varchar,
+          user varchar NOT NULL,
           )`
 
         const values = [id, firstName]
@@ -25,6 +20,6 @@ module.exports = {
             console.log('added user to database if they haven\'t been inputted previously')
           }
         })
-      })
+     
   }
 }
