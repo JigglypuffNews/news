@@ -9,11 +9,6 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {};
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  handleClick() {
-    fetch('/login');
   }
 
   render() {
@@ -22,7 +17,11 @@ class Login extends Component {
         <h1>TechMe</h1>
         <div id="loginBox">
           {/* <h1 id="mainLoginText">Login</h1> */}
-          <button id="mainLoginButton" onClick={this.handleClick}>
+          <button
+            type="button"
+            id="mainLoginButton"
+            onClick={this.props.loginStateUpdate}
+          >
             LOG VIA LINKEDIN
           </button>
         </div>

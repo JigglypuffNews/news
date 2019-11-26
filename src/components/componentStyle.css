@@ -31,9 +31,8 @@
 }
 /* parent */
 #loginBox {
-
     position: relative;
-    top: 350px;
+    top: 150px;
     align-items: center;
     display: flex;
     justify-content: center;
