@@ -2,11 +2,11 @@ const fetch = require('node-fetch');
 
 module.exports = {
 
-  loginLi(req, res, next) {
+  loginLI(req, res, next) {
     fetch('https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=77mmt6otf0l7cw&redirect_uri=http://localhost:3000/main&state=fzJNKSDGLKJNDFJKNGHEKWRw43590687gdfs&scope=r_liteprofile%20r_emailaddress%20w_member_social')
       .then(data => {
-        alert('hit rediredct!!')
-        res.redirect(data.redirects);
+        console.log('DATA URL -->', data.url)
+        res.redirect(data.redirects)
         return next()
       })
       .catch(err => {
