@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import FeedBox from './feedBox';
 import FeedControl from './feedControl';
 import ConnectHackerNewsAPI from '../functions/connectHackerNewsAPI';
+import SearchArticles from '../functions/searchArticles';
+
 
 class FeedContainer extends Component {
   constructor(props) {
@@ -10,8 +12,8 @@ class FeedContainer extends Component {
   }
 
   componentDidMount() {
-    ConnectHackerNewsAPI().then(res => console.log(res));
-    // console.log('article ids', articleIDs);
+    ConnectHackerNewsAPI()
+    .then(res => SearchArticles(res));
   }
 
   render() {
