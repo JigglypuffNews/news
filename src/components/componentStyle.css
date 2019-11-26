@@ -5,17 +5,43 @@
     justify-content: center;
 }
 
-#loginBox {
-    margin-top: 20%;
-    margin-bottom: 20px;
-    display: inline-flex;
-    flex-direction: column;
+#mainLoginText {
+    background:none ;
+}
+/* child */
+#mainLoginButton {
+    position: relative;
+    top: 37%;
+    background: none;
+    width: 100%;
+    display: flex;
     justify-content: center;
-    background-color: lightslategrey;
-    border: 2px solid slategray;
-    border-radius: 10px;
-    height: 100%;
-    width: 60%
+    bottom: 10px;
+    background-color: #0076B5;
+    color: whitesmoke;
+    height: 45px;
+    align-items: center;
+    font-size: 15px;
+    border-top: 5px solid #FEFEFE; ;
+    border-left:none ;
+    border-right:none ;
+    border-bottom: none;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+/* parent */
+#loginBox {
+
+    position: relative;
+    top: 350px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    background-color: #BBCFD0;
+    border: 5px solid #FEFEFE;
+    border-radius: 15px;
+    height: 175px;
+    width: 525px;
 }
 
 #logoBox {
@@ -29,12 +55,12 @@
 }
 
 #logoPic {
-
+    max-height: 300px;
     max-width: 650px;
 }
 
-@media only screen and (max-height: 420px) {
+/* @media only screen and (max-height: 450px) {
     #logoPic {
         display: none;
     }
-}
+} */

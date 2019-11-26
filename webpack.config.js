@@ -1,33 +1,35 @@
-const path = require("path");
-const webpack = require("webpack");
+const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
   mode: process.env.NODE_ENV,
-  entry: "./src/index.js",
+  entry: './src/index.js',
   output: {
-      filename: 'bundle.js',
-      path: path.resolve(__dirname, 'dist')
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'dist'),
   },
   devServer: {
-    contentBase: path.join(__dirname, "./dist"),
-    port: 8080,
+    contentBase: path.join(__dirname, './dist'),
+    port: 8081,
     hot: true,
-    proxy: [{
+    proxy: [
+      {
         context: ['/'],
-        target: 'http://localhost:3000'
-    }]
-  }, 
+        target: 'http://localhost:3000',
+      },
+    ],
+  },
   module: {
     rules: [
       {
         test: /\.(js|jsx)$/,
         exclude: /(node_modules)/,
-        loader: "babel-loader",
-        options: { presets: ["@babel/env"] }
+        loader: 'babel-loader',
+        options: { presets: ['@babel/env'] },
       },
       {
         test: /\.css$/,
-        use: ["style-loader", "css-loader"]
+        use: ['style-loader', 'css-loader'],
       },
       {
         test: /\.(png|jpg|gif)$/i,
@@ -40,8 +42,8 @@ module.exports = {
           },
         ],
       },
-    ]
+    ],
   },
-  resolve: { extensions: ["*", ".js", ".jsx"] },
-  plugins: [new webpack.HotModuleReplacementPlugin()]
+  resolve: { extensions: ['*', '.js', '.jsx'] },
+  plugins: [new webpack.HotModuleReplacementPlugin()],
 };
