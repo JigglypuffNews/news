@@ -10,7 +10,7 @@ module.exports = {
           user varchar NOT NULL,
           )`
 
-        const values = [id, firstName]
+        const values = [id, user]
 
         pool.query(queryString, values, (err, results) => {
           if (err) {

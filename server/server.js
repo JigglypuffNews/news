@@ -28,19 +28,18 @@ passport.use(new LinkedInStrategy({
   clientID:'77mmt6otf0l7cw',
   clientSecret:'I6IAlHNXbgzJ1Hn1',
   callbackURL:'http://localhost:3000/main',
-  scope: ['r_emailaddress', 'r_basicprofile'],
+  scope: ['r_emailaddress', 'r_liteprofile'],
   state: true,
 },
  function (accessToken, refreshToken, profile, done) {
    console.log('INSIDE ANONYMOUS FUNC')
-   console.log('accessToken:', accessToken, 'refreshToken:', refreshToken, 'profile:', profile, 'done:', done);
   // asynchronous verification, for effect...
    process.nextTick(function () {
     // create obj of necessary user info
     // add user to db with middleware
     // move on
     console.log('INSIDE NEXT TICK FUNC')
-    console.log('accessToken:', accessToken, 'refreshToken:', refreshToken, 'profile:', profile, 'done:', done);
+    console.log('accessToken:', accessToken, 'profile ID:', profile.id, 'dispaly name: ', profile.displayName);
     // To keep the example simple, the user's LinkedIn profile is returned to
     // represent the logged-in user. In a typical application, you would want
     // to associate the LinkedIn account with a user record in your database,
@@ -65,7 +64,7 @@ app.get('/login', passport.authenticate('linkedin')
 );
 
 app.get('/main', passport.authenticate('linkedin', {
-  successRedirect: '/',
+  successRedirect: '/main',
   failureRedirect: '/login',
 }));
 
