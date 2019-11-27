@@ -50,8 +50,8 @@ module.exports = {
   },
 
   // STRETCH
-  postFavs(req,res,next){},
+  // postFavs(req,res,next){},
   
-  getFavs(req,res,next){},
+  // getFavs(req,res,next){},
   
 };
