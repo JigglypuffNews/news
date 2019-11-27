@@ -67,8 +67,20 @@ app.get('/main', passport.authenticate('linkedin', {
 }));
 
 app.post('/postUser', userController.checkIfUser, (req, res)=>{
-  console.log('RES LOCALS IN SERVER AFTER MIDDLEWARE -->', res.locals.userData)
-  // res.status(200).send(res.locals.userData);
+  // user data on req body ready to send to front if needed
+  res.sendStatus(200);
+})
+
+app.post('/postInterests', userController.postInterests,(req,res) =>{
+  res
+  .status(200)
+  .send('posted favorites to the database')
+})
+
+app.get('/getInterests', userController.getInterests,(req,res) =>{
+  console.log('RES LOCALS INTERESTS AFTER MIDDLEWARE -->', res.locals.interests)
+  res
+  .status(200)
 })
 
 app.listen(3000, () => { console.log('Listening on port 3000!'); });
