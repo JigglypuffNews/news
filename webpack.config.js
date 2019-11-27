@@ -12,13 +12,11 @@ module.exports = {
     contentBase: path.join(__dirname, './dist'),
     port: 8080,
     hot: true,
-    proxy: [
-      {
-        context: ['/'],
-        target: 'http://localhost:3000',
-      },
-    ],
-  },
+    proxy: [{
+        context: ()=>true,
+        target: 'http://localhost:3000'
+    }]
+  }, 
   module: {
     rules: [
       {
