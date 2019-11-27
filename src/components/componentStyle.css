@@ -130,7 +130,7 @@
 }
 
 .feedBoxShade{
-    background-color: rgb(173, 185, 197, 0.2);
+    background-color: rgb(173, 185, 197);
 }
 
 .feedBoxSummary p {
@@ -202,5 +202,5 @@
     display: block;
     height: 12.5rem;
     width: 12.5rem;
-     background:green;
+    background:green;
 }

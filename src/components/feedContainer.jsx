@@ -18,9 +18,11 @@ class FeedContainer extends Component {
         'open-source',
       ],
       articles: [],
+      userInterests: [],
     };
     this.leftArrowClick = this.leftArrowClick.bind(this);
     this.rightArrowClick = this.rightArrowClick.bind(this);
+    this.transmitUserInterests = this.transmitUserInterests.bind(this);
   }
 
   componentDidMount() {
@@ -40,11 +42,22 @@ class FeedContainer extends Component {
     console.log('RIGHT ARROW CLICKED');
   }
 
+  transmitUserInterests(interests) {
+    this.setState({ userInterests: interests });
+    console.log('this is state', this.state.userInterests);
+    // fetch('/userInterests', {
+    //   method: 'POST',
+    //   headers: { 'Content-type': 'Application/json' },
+    //   body: JSON.stringify(this.state.userInterests),
+    // });
+  }
+
   render() {
     const newsFeedToRender = [];
     for (let i = 0; i < this.state.articles.length; i += 1) {
       newsFeedToRender.push(
         <FeedBox
+          key={`newsFeedItem${i}`}
           author={this.state.articles[i].author}
           title={this.state.articles[i].title}
           imageURL={this.state.articles[i].urlToImage}
@@ -59,7 +72,10 @@ class FeedContainer extends Component {
     return (
       <>
         <h1>Feed Container</h1>
-        <FeedControl />
+        <FeedControl
+          sendInterests={this.transmitUserInterests}
+          userInterests={this.state.userInterests}
+        />
         {newsFeedToRender}
       </>
     );
