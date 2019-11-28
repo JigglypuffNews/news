@@ -17,13 +17,9 @@ class Login extends Component {
         <h1>TechMe</h1>
         <div id="loginBox">
           {/* <h1 id="mainLoginText">Login</h1> */}
-          <button
-            type="button"
-            id="mainLoginButton"
-            onClick={this.props.loginStateUpdate}
-          >
-            LOG VIA LINKEDIN
-          </button>
+                <form method="POST" action='/login'>
+                    <input type='submit' id='mainLoginButton' value="LOG IN TO LINKEDIN" />
+                </form>
         </div>
         <div id="logoBox">
           <img src={Logo} id="logoPic" height="30%" width="40%" alt="weblogo" />

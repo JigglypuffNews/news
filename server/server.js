@@ -3,16 +3,28 @@ const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
 require('dotenv').config();
-// const cookieParser = require('cookie-parser');
+const cookieParser = require('cookie-parser');
 // const oauthController = require('./controllers/oauthController')
 const userController = require('./controllers/userController');
 const passport = require('passport');
 const LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
 const session = require('express-session')
-// const LinkedInStrategy = passportLI.Strategy;
+const cors = require('cors');
 
 
+app.use(cors());
 app.use(bodyParser.json());
+app.use(cookieParser());
+
+app.get('/', (req, res, next) => {
+  if (req.cookies.isLoggedIn) {
+    res.status(200).sendFile(path.resolve(__dirname, '../src/index.html'))
+  }
+  else {
+    res.redirect('/login')
+  }
+})
+
 app.use(express.static(path.resolve(__dirname, '../dist')));
 //move secret to env later
 app.use(session(({
@@ -55,7 +67,15 @@ passport.deserializeUser(async (user, done) => {
 });
 
 
-app.get('/login', passport.authenticate('linkedin')
+app.get('/login', (req, res, next) => {
+  res.status(200).sendFile(path.resolve(__dirname, '../src/login.html'))
+})
+
+app.post('/login', (req, res, next) => {
+    res.cookie('isLoggedIn', true, {maxAge: 360000});
+    next();
+  },
+  passport.authenticate('linkedin')
 // ,(req, res) => {
 //   console.log('WE SHOULDN\'T SEE THIS CONSOLE LOG IN GET /login');
 // }
