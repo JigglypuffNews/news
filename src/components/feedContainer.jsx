@@ -1,49 +1,55 @@
 import React, { Component } from 'react';
 import FeedBox from './feedBox';
 import FeedControl from './feedControl';
+import InterestContainer from './interestContainer';
 import ConnectHackerNewsAPI from '../functions/connectHackerNewsAPI';
 import SearchArticles from '../functions/searchArticles';
+
 
 class FeedContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      topics: [
-        'graphql',
-        'GitHub',
-        'API',
-        'Javascript',
-        'HTML',
-        'World',
-        'open-source',
-      ],
-      articles: [],
-      userInterests: [],
+      displayArticles: false,
+      articles: {},
+      userInterests: ['graphql', 'javascript', 'microsoft'],
+      profile: null,
+      authToken: null,
+      controlBox: null,
+      interestCounter: 0
     };
-    this.leftArrowClick = this.leftArrowClick.bind(this);
-    this.rightArrowClick = this.rightArrowClick.bind(this);
     this.transmitUserInterests = this.transmitUserInterests.bind(this);
+    this.displayArticlesHandle = this.displayArticlesHandle.bind(this);
   }
 
   componentDidMount() {
-    fetch(
-      `https://newsapi.org/v2/everything?q=graphql&language=en&pagesize=100&from=2019-11-26&sortBy=popularity&apiKey=4ffc6971bc1e48fcbb98a57331bbebd4`
-    )
-      .then(res => res.json())
-      .then(res => this.setState({ articles: res.articles }))
-      .then(() => console.log('lol', this.state.articles));
+    fetch('/access').then(res => res.json()).then(res => {
+      console.log("profile", res.profile)
+      this.setState({profile: res.profile, authToken: res.token })
+    })
+    for (let i = 0; i < this.state.userInterests.length; i += 1) {
+      fetch(
+        `https://newsapi.org/v2/everything?q=${this.state.userInterests[i]}&language=en&pagesize=100&from=2019-11-26&sortBy=popularity&apiKey=4ffc6971bc1e48fcbb98a57331bbebd4`
+      )
+        .then(res => res.json())
+        .then(res => {
+          let obj = this.state.articles;
+          obj[this.state.userInterests[i]] = res.articles;
+          this.setState({ articles: obj })
+        })
+        .then((res) => console.log('lol', this.state.articles));
+    }
   }
 
-  leftArrowClick() {
-    console.log('LEFT ARROW CLICKED');
-  }
-
-  rightArrowClick() {
-    console.log('RIGHT ARROW CLICKED');
+  displayArticlesHandle() {
+    if (this.state.displayArticles === false) {
+      this.setState({displayArticles: true});
+    }
+    else this.setState({displayArticles: false});
   }
 
   transmitUserInterests(interests) {
-    this.setState({ userInterests: interests });
+    this.setState({ userInterests: [...this.state.userInterests, interests] });
     console.log('this is state', this.state.userInterests);
     // fetch('/userInterests', {
     //   method: 'POST',
@@ -54,28 +60,28 @@ class FeedContainer extends Component {
 
   render() {
     const newsFeedToRender = [];
-    for (let i = 0; i < this.state.articles.length; i += 1) {
-      newsFeedToRender.push(
-        <FeedBox
-          key={`newsFeedItem${i}`}
-          author={this.state.articles[i].author}
-          title={this.state.articles[i].title}
-          imageURL={this.state.articles[i].urlToImage}
-          link={this.state.articles[i].url}
-          summary={this.state.articles[i].description}
-          leftArrowClick={this.leftArrowClick}
-          rightArrowClick={this.rightArrowClick}
-        />
-      );
+    if(this.state.displayArticles) {
+      for (let i = 0; i < this.state.userInterests.length; i += 1) {
+        newsFeedToRender.push(
+          <InterestContainer
+            interest={this.state.userInterests[i]}
+            articleArr={this.state.articles[this.state.userInterests[i]]}
+          />
+        );
+      }
     }
-
-    return (
-      <>
-        <h1>Feed Container</h1>
-        <FeedControl
+    let feedControlRender = []
+    if (this.state.profile) {
+      feedControlRender.push(<FeedControl
+          profile={this.state.profile}
           sendInterests={this.transmitUserInterests}
           userInterests={this.state.userInterests}
-        />
+        />)
+    }
+    return (
+      <>
+        {feedControlRender}
+        <button onClick={this.displayArticlesHandle}>Click to load articles</button>
         {newsFeedToRender}
       </>
     );

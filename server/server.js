@@ -4,13 +4,13 @@ const path = require('path');
 const bodyParser = require('body-parser');
 require('dotenv').config();
 const cookieParser = require('cookie-parser');
-// const oauthController = require('./controllers/oauthController')
 const userController = require('./controllers/userController');
 const passport = require('passport');
 const LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
 const session = require('express-session')
 const cors = require('cors');
 
+let accToken, LIprofile;
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -54,6 +54,9 @@ passport.use(new LinkedInStrategy({
     // represent the logged-in user. In a typical application, you would want
     // to associate the LinkedIn account with a user record in your database,
     // and return that user instead.
+    accToken = accessToken;
+    LIprofile = profile;
+    console.log(accessToken, profile)
     return done(null, profile);
   });
  }));
@@ -76,15 +79,16 @@ app.post('/login', (req, res, next) => {
     next();
   },
   passport.authenticate('linkedin')
-// ,(req, res) => {
-//   console.log('WE SHOULDN\'T SEE THIS CONSOLE LOG IN GET /login');
-// }
 );
 
 app.get('/main', passport.authenticate('linkedin', {
   successRedirect: '/',
   failureRedirect: '/login',
 }));
+
+app.get("/access", (req, res) => {
+  res.status(200).send({ token: accToken, profile: LIprofile })
+})
 
 app.post('/postUser', userController.checkIfUser, (req, res)=>{
   // user data on req body ready to send to front if needed
