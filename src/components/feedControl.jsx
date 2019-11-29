@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 
 const FeedControl = props => {
   const [inputField, updateField] = useState('');
-  console.log(inputField);
-  console.log(props.profile)
   return (
     <>
       <div>
@@ -14,7 +12,7 @@ const FeedControl = props => {
         <input onChange={e => updateField(e.target.value)} type="text" />
         <button
           onClick={() =>
-            props.sendInterests([...props.userInterests, inputField])
+            props.sendInterests(inputField)
           }
         >
           Submit

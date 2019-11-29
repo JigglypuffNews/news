@@ -4,6 +4,7 @@ import FeedControl from './feedControl';
 import InterestContainer from './interestContainer';
 import ConnectHackerNewsAPI from '../functions/connectHackerNewsAPI';
 import SearchArticles from '../functions/searchArticles';
+import regeneratorRuntime from "regenerator-runtime";
 
 
 class FeedContainer extends Component {
@@ -20,13 +21,16 @@ class FeedContainer extends Component {
     };
     this.transmitUserInterests = this.transmitUserInterests.bind(this);
     this.displayArticlesHandle = this.displayArticlesHandle.bind(this);
+    this.refetchArticles = this.refetchArticles.bind(this);
+
   }
 
   componentDidMount() {
-    fetch('/access').then(res => res.json()).then(res => {
-      console.log("profile", res.profile)
-      this.setState({profile: res.profile, authToken: res.token })
-    })
+    if (this.state.profile === null) {
+      fetch('/access').then(res => res.json()).then(res => {
+        this.setState({profile: res.profile, authToken: res.token })
+      })
+    }
     for (let i = 0; i < this.state.userInterests.length; i += 1) {
       fetch(
         `https://newsapi.org/v2/everything?q=${this.state.userInterests[i]}&language=en&pagesize=100&from=2019-11-26&sortBy=popularity&apiKey=4ffc6971bc1e48fcbb98a57331bbebd4`
@@ -37,7 +41,20 @@ class FeedContainer extends Component {
           obj[this.state.userInterests[i]] = res.articles;
           this.setState({ articles: obj })
         })
-        .then((res) => console.log('lol', this.state.articles));
+    }
+  }
+
+  refetchArticles(tempArr) {
+    for (let i = 0; i < tempArr.length; i += 1) {
+      fetch(
+        `https://newsapi.org/v2/everything?q=${tempArr[i]}&language=en&pagesize=100&from=2019-11-26&sortBy=popularity&apiKey=4ffc6971bc1e48fcbb98a57331bbebd4`
+      )
+      .then(res => res.json())
+      .then(res => {
+        let obj = this.state.articles;
+        obj[tempArr[i]] = res.articles;
+        this.setState({ articles: obj })
+      })
     }
   }
 
@@ -48,9 +65,10 @@ class FeedContainer extends Component {
     else this.setState({displayArticles: false});
   }
 
-  transmitUserInterests(interests) {
-    this.setState({ userInterests: [...this.state.userInterests, interests] });
-    console.log('this is state', this.state.userInterests);
+  async transmitUserInterests(interests) {
+    let tempArr = [...this.state.userInterests, interests]
+    let x = await this.refetchArticles(tempArr);
+    this.setState({ userInterests: tempArr });
     // fetch('/userInterests', {
     //   method: 'POST',
     //   headers: { 'Content-type': 'Application/json' },
@@ -60,7 +78,8 @@ class FeedContainer extends Component {
 
   render() {
     const newsFeedToRender = [];
-    if(this.state.displayArticles) {
+    console.log("ARTICLES", this.state.articles, "INTERESTS", this.state.userInterests)
+    if(this.state.displayArticles && Object.keys(this.state.articles).length === this.state.userInterests.length) {
       for (let i = 0; i < this.state.userInterests.length; i += 1) {
         newsFeedToRender.push(
           <InterestContainer

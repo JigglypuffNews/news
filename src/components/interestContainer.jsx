@@ -9,11 +9,9 @@ class InterestContainer extends Component {
         }
         this.leftArrowClick = this.leftArrowClick.bind(this)
         this.rightArrowClick = this.rightArrowClick.bind(this)
-
     }
 
     leftArrowClick() {
-        console.log("hit left arrow", this.state.interestCounter)
         if (this.state.interestCounter > 0) {
             let temp = this.state.interestCounter - 1;
             this.setState({interestCounter: temp});
@@ -21,7 +19,6 @@ class InterestContainer extends Component {
     }
 
     rightArrowClick() {
-        console.log("hit right arrow", this.state.interestCounter)
         if (this.state.interestCounter < this.props.articleArr.length) {
             let temp = this.state.interestCounter + 1;
             this.setState({interestCounter: temp});
