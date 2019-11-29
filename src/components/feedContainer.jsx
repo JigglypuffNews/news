@@ -22,7 +22,7 @@ class FeedContainer extends Component {
     this.transmitUserInterests = this.transmitUserInterests.bind(this);
     this.displayArticlesHandle = this.displayArticlesHandle.bind(this);
     this.refetchArticles = this.refetchArticles.bind(this);
-
+    this.removeInterest = this.removeInterest.bind(this);
   }
 
   componentDidMount() {
@@ -45,6 +45,7 @@ class FeedContainer extends Component {
   }
 
   refetchArticles(tempArr) {
+    this.setState({articles: {}})
     for (let i = 0; i < tempArr.length; i += 1) {
       fetch(
         `https://newsapi.org/v2/everything?q=${tempArr[i]}&language=en&pagesize=100&from=2019-11-26&sortBy=popularity&apiKey=4ffc6971bc1e48fcbb98a57331bbebd4`
@@ -67,13 +68,24 @@ class FeedContainer extends Component {
 
   async transmitUserInterests(interests) {
     let tempArr = [...this.state.userInterests, interests]
-    let x = await this.refetchArticles(tempArr);
+    await this.refetchArticles(tempArr);
     this.setState({ userInterests: tempArr });
     // fetch('/userInterests', {
     //   method: 'POST',
     //   headers: { 'Content-type': 'Application/json' },
     //   body: JSON.stringify(this.state.userInterests),
     // });
+  }
+
+  async removeInterest(interest) {
+    let tempArr = [];
+    for (let i = 0; i < this.state.userInterests.length; i += 1) {
+      if (this.state.userInterests[i] !== interest) {
+        tempArr.push(this.state.userInterests[i]);
+      }
+    }
+    await this.refetchArticles(tempArr);
+    this.setState({ userInterests: tempArr })
   }
 
   render() {
@@ -83,6 +95,7 @@ class FeedContainer extends Component {
       for (let i = 0; i < this.state.userInterests.length; i += 1) {
         newsFeedToRender.push(
           <InterestContainer
+            removeInterest={this.removeInterest}
             interest={this.state.userInterests[i]}
             articleArr={this.state.articles[this.state.userInterests[i]]}
           />

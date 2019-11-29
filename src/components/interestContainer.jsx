@@ -38,6 +38,7 @@ class InterestContainer extends Component {
                 leftArrowClick={this.leftArrowClick}
                 rightArrowClick={this.rightArrowClick}
                 />
+                <button onClick={() => this.props.removeInterest(this.props.interest)}>Remove {this.props.interest} from interests.</button>
             </div>
         )
     }
