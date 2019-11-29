@@ -31,6 +31,7 @@ module.exports = {
       .then(data => {
         console.log('DATA FROM POOL QUERY IN POST INTEREST -->', data)
         // res.locals.interests.push(data)
+        return next()
       })
       .catch(err => console.error(err))
     })
@@ -50,8 +51,8 @@ module.exports = {
   },
 
   // STRETCH
-  postFavs(req,res,next){},
+  // postFavs(req,res,next){},
   
-  getFavs(req,res,next){},
+  // getFavs(req,res,next){},
   
 };
