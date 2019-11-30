@@ -17,7 +17,8 @@ class FeedContainer extends Component {
       profile: null,
       authToken: null,
       controlBox: null,
-      interestCounter: 0
+      interestCounter: 0,
+      linkedinId: null
     };
     this.transmitUserInterests = this.transmitUserInterests.bind(this);
     this.displayArticlesHandle = this.displayArticlesHandle.bind(this);
@@ -28,7 +29,7 @@ class FeedContainer extends Component {
   componentDidMount() {
     if (this.state.profile === null) {
       fetch('/access').then(res => res.json()).then(res => {
-        this.setState({profile: res.profile, authToken: res.token })
+        this.setState({ profile: res.profile, authToken: res.token, linkedinId: res.profile.id })
       })
     }
     for (let i = 0; i < this.state.userInterests.length; i += 1) {
@@ -95,6 +96,7 @@ class FeedContainer extends Component {
       for (let i = 0; i < this.state.userInterests.length; i += 1) {
         newsFeedToRender.push(
           <InterestContainer
+            linkedinId={this.state.linkedinId}
             removeInterest={this.removeInterest}
             interest={this.state.userInterests[i]}
             articleArr={this.state.articles[this.state.userInterests[i]]}

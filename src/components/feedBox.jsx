@@ -2,6 +2,32 @@ import React, { useState } from 'react';
 import genericImage from '../photos/feedImages/motherBoard.jpg';
 
 function FeedBox(props) {
+
+  let postSkeleton = `{
+      "content": {
+          "contentEntities": [
+              {
+                  "entityLocation": "${props.link}",
+                  "thumbnails": [
+                      {
+                          "resolvedUrl": "${props.imageURL}"
+                      }
+                  ]
+              }
+          ],
+          "title": "Great article, definitely worth a read."
+      },
+      "distribution": {
+          "linkedInDistributionTarget": {}
+      },
+      "owner": "urn:li:person:${props.linkedinId}",
+      "subject": "Found a great article on ${props.interest}",
+      "text": {
+          "text": "Great article, definitely worth a read."
+      }
+  }`
+
+
   return (
     <>
       <div id="feedBoxOuter">
@@ -20,6 +46,7 @@ function FeedBox(props) {
             <div className="feedBoxSummary">
               <div className="feedBoxTextContainer">
                 <a href={props.link}>Link to article</a>
+                <button onClick={() => props.postArticle(postSkeleton)}>Post to LinkedIn</button>
                 <h5>{props.author}</h5>
                 <p>{props.summary}</p>
               </div>

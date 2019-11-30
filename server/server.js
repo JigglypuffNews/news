@@ -9,6 +9,7 @@ const passport = require('passport');
 const LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
 const session = require('express-session')
 const cors = require('cors');
+const fetch = require('node-fetch')
 
 let accToken, LIprofile;
 
@@ -40,7 +41,7 @@ passport.use(new LinkedInStrategy({
   clientID:'77mmt6otf0l7cw',
   clientSecret:'I6IAlHNXbgzJ1Hn1',
   callbackURL:'http://localhost:3000/main',
-  scope: ['r_emailaddress', 'r_liteprofile'],
+  scope: ['r_emailaddress', 'r_liteprofile', 'w_member_social'],
   state: true,
 },
  function (accessToken, refreshToken, profile, done) {
@@ -80,6 +81,16 @@ app.post('/login', (req, res, next) => {
   },
   passport.authenticate('linkedin')
 );
+
+app.post('/postArticle', (req, res, next) => {
+  console.log("hit /postArticles", req.body);
+  fetch(`https://api.linkedin.com/v2/shares?oauth2_access_token=${accToken}`, {
+    headers: {"Content-type" : "application/json"},
+    method: "POST",
+    body: JSON.stringify(req.body),
+  }).then(res => res.json())
+  .then(res => console.log("RESULTS OF POST:", res))
+})
 
 app.get('/main', passport.authenticate('linkedin', {
   successRedirect: '/',

@@ -9,6 +9,8 @@ class InterestContainer extends Component {
         }
         this.leftArrowClick = this.leftArrowClick.bind(this)
         this.rightArrowClick = this.rightArrowClick.bind(this)
+        this.postArticle = this.postArticle.bind(this)
+
     }
 
     leftArrowClick() {
@@ -24,11 +26,24 @@ class InterestContainer extends Component {
             this.setState({interestCounter: temp});
         }
     }
+
+    postArticle(article) {
+        console.log("hit postarticle client", article)
+        fetch('/postArticle', {
+            headers: {"Content-type":"application/json"},
+            method: "POST",
+            body: article,
+        })
+    }
+
     render () {
         return (
             <div>
                 <h3>Based on your interest in {this.props.interest}:</h3>
                 <FeedBox
+                postArticle={this.postArticle}
+                interest={this.props.interest}
+                linkedinId={this.props.linkedinId}
                 key={'newsFeedItem' + this.state.interestCounter}
                 author={this.props.articleArr[this.state.interestCounter].author}
                 title={this.props.articleArr[this.state.interestCounter].title}
