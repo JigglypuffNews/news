@@ -58,7 +58,30 @@
     max-width: 650px;
 }
 
+#linkedInPic {
+    border-radius: 50px;
+    margin-left: 30px;
+}
 
+#centeredDiv {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+#loadArticlesButton{
+    justify-content: center;
+}
+
+#interestFieldBox {
+    display: flex;
+    justify-content: center;
+}
+
+#greetingBox {
+    display: flex;
+    justify-content: center;
+}
 
 #feedBoxContainer {
     margin: auto;

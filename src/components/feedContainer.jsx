@@ -115,8 +115,10 @@ class FeedContainer extends Component {
     return (
       <>
         {feedControlRender}
-        <button onClick={this.displayArticlesHandle}>Click to load articles</button>
-        {newsFeedToRender}
+          <button id="loadArticlesButton" onClick={this.displayArticlesHandle}>Click to load articles</button>
+        <div id="centeredDiv">
+          {newsFeedToRender}
+        </div>
       </>
     );
   }
