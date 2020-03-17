@@ -34,7 +34,7 @@ class FeedContainer extends Component {
     }
     for (let i = 0; i < this.state.userInterests.length; i += 1) {
       fetch(
-        `https://newsapi.org/v2/everything?q=${this.state.userInterests[i]}&language=en&pagesize=100&from=2019-11-26&sortBy=popularity&apiKey=4ffc6971bc1e48fcbb98a57331bbebd4`
+        `https://newsapi.org/v2/everything?q=${this.state.userInterests[i]}&language=en&pagesize=100&from=2020-02-26&sortBy=popularity&apiKey=d0965c2624db42848af1a182d1338f13`
       )
         .then(res => res.json())
         .then(res => {
@@ -49,7 +49,7 @@ class FeedContainer extends Component {
     this.setState({articles: {}})
     for (let i = 0; i < tempArr.length; i += 1) {
       fetch(
-        `https://newsapi.org/v2/everything?q=${tempArr[i]}&language=en&pagesize=100&from=2019-11-26&sortBy=popularity&apiKey=4ffc6971bc1e48fcbb98a57331bbebd4`
+        `https://newsapi.org/v2/everything?q=${tempArr[i]}&language=en&pagesize=100&from=2020-02-26&sortBy=popularity&apiKey=d0965c2624db42848af1a182d1338f13`
       )
       .then(res => res.json())
       .then(res => {

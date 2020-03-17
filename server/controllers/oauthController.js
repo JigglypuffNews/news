@@ -31,7 +31,10 @@ module.exports = {
       },
       body: `grant_type=authorization_code&code=${code}&redirect_uri=http://localhost:3000/maink&client_id=77mmt6otf0l7cw&client_secret=I6IAlHNXbgzJ1Hn1`,
     })
-      .then(data => data.json())
+      .then(data => {
+        console.log('checking data', data)
+        
+        data.json()})
       .then(response => {
         const { accessToken, expiresIn } = req.body;
         fetch('api.linkedin.com/v2/me', {

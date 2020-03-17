@@ -38,8 +38,8 @@ app.use(passport.session());
 
 // require('./config/passport')(passport);
 passport.use(new LinkedInStrategy({
-  clientID:'77mmt6otf0l7cw',
-  clientSecret:'I6IAlHNXbgzJ1Hn1',
+  clientID:'78t6l1x2aongm0',
+  clientSecret:'uK0eg5HYTtA8KsuQ',
   callbackURL:'http://localhost:3000/main',
   scope: ['r_emailaddress', 'r_liteprofile', 'w_member_social'],
   state: true,
@@ -57,7 +57,8 @@ passport.use(new LinkedInStrategy({
     // and return that user instead.
     accToken = accessToken;
     LIprofile = profile;
-    console.log(accessToken, profile)
+    console.log('access token', accessToken)
+    console.log('profile:', profile, 'end')
     return done(null, profile);
   });
  }));
@@ -72,10 +73,12 @@ passport.deserializeUser(async (user, done) => {
 
 
 app.get('/login', (req, res, next) => {
+  console.log('inside http get request for login')
   res.status(200).sendFile(path.resolve(__dirname, '../src/login.html'))
 })
 
 app.post('/login', (req, res, next) => {
+  console.log('grabbing cookie for login')
     res.cookie('isLoggedIn', true, {maxAge: 360000});
     next();
   },
@@ -115,6 +118,7 @@ app.post('/postInterests', userController.postInterests,(req,res) =>{
 })
 
 app.get('/getInterests', userController.getInterests,(req,res) =>{
+  console.log('getting Interests')
   res
   .status(200)
   .send('retrieved data from the database');
