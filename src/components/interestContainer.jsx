@@ -38,7 +38,7 @@ class InterestContainer extends Component {
 
     render () {
         return (
-            <div>
+            <div className="interestContainerComp">
                 <h3>Based on your interest in {this.props.interest}:</h3>
                 <FeedBox
                 postArticle={this.postArticle}

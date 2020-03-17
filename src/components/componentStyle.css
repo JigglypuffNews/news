@@ -35,6 +35,7 @@
     top: 150px;
     align-items: center;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     background-color: #BBCFD0;
     border: 5px solid #FEFEFE;
@@ -70,7 +71,12 @@
 }
 
 #loadArticlesButton{
+    display: flex;
     justify-content: center;
+}
+
+.interestContainerComp {
+    align-content: center;
 }
 
 #interestFieldBox {

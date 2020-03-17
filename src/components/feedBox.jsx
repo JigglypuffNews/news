@@ -15,7 +15,7 @@ function FeedBox(props) {
                   ]
               }
           ],
-          "title": "Great article, definitely worth a read."
+          "title": "${props.title}"
       },
       "distribution": {
           "linkedInDistributionTarget": {}
@@ -23,7 +23,7 @@ function FeedBox(props) {
       "owner": "urn:li:person:${props.linkedinId}",
       "subject": "Found a great article on ${props.interest}",
       "text": {
-          "text": "Great article, definitely worth a read."
+          "text": "Great article: ${props.summary}"
       }
   }`
 
